@@ -1,0 +1,50 @@
+import tkinter as tk
+from tkinter import messagebox, simpledialog
+import random
+
+def move_button():
+    step_size = difficulty_levels[difficulty.get()]
+    max_x = window.winfo_width() - button.winfo_width()
+    max_y = window.winfo_height() - button.winfo_height()
+    new_x = random.randint(max(step_size, button.winfo_x() - step_size), min(max_x, button.winfo_x() + step_size))
+    new_y = random.randint(max(step_size, button.winfo_y() - step_size), min(max_y, button.winfo_y() + step_size))
+    button.place(x=new_x, y=new_y)
+    global attempts
+    attempts += 1
+    attempts_label.config(text=f"Спроби: {attempts}")
+
+def catch_me():
+    messagebox.showinfo("Піймай мене", "Ти впіймав мене!")
+    play_again = messagebox.askyesno("Гра", "Хочеш грати знову?")
+    if play_again:
+        reset_game()
+    else:
+        window.destroy()
+
+def reset_game():
+    global attempts
+    attempts = 0
+    attempts_label.config(text="Спроби: 0")
+    button.place(x=200, y=150)
+
+window = tk.Tk()
+window.title("Піймай мене, якщо зможеш")
+window.geometry("400x400")
+
+attempts = 0
+difficulty_levels = {'Easy': 50, 'Medium': 100, 'Hard': 150}  # Define step sizes for different difficulties
+
+difficulty = tk.StringVar(window)
+difficulty.set('Medium') 
+difficulty_menu = tk.OptionMenu(window, difficulty, *difficulty_levels.keys())
+difficulty_menu.pack()
+
+button = tk.Button(window, text="Піймай мене", command=catch_me)
+button.place(x=200, y=150)
+
+button.bind("<Enter>", lambda e: move_button())
+
+attempts_label = tk.Label(window, text=f"Спроби: {attempts}")
+attempts_label.pack(side=tk.BOTTOM)
+
+window.mainloop()
