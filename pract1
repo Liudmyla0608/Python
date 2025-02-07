@@ -1,0 +1,172 @@
+import numpy as np  # 0. Імпортувати numpy загальноприйнятим способом.
+import pandas as pd  # 0. Імпортувати бібліотеку pandas.
+
+# 1.Визначити список з оцінками студента(ки) за семестр. Використовуючи його, створити одновимірний масив numpy.
+grades = [88, 92, 85, 91, 75]
+grades_array = np.array(grades)
+
+# 2.Визначити список зі списками, де кожен рядок списку формально означає магазин, а кожна колонка - певний продукт
+# (батон, яйця першої категорії, молоко та ковбаса), а елементами на пересічі є ціни на ці продукти відповідно.
+#Використовуючи цей список, створити матрицю (двовимірний масив) numpy.
+products = [
+    [25.5, 7.5, 22.0, 45.2],  #Ціни в першому магазині
+    [26.0, 8.0, 21.5, 44.5],  #Ціни в другому магазині
+    [25.0, 7.0, 22.5, 46.0]   #Ціни в третьому магазині
+]
+product_matrix = np.array(products)
+
+# 3 Отримайте тип даних значень з масивів завдань 2 та 3. Виведіть їх на екран.
+print("Тип даних масиву grades_array:", grades_array.dtype)
+print("Тип даних матриці product_matrix:", product_matrix.dtype)
+
+# 4Отримайте форми (кортеж з кількістю рядків та колонок) масивів завдань 2 та 3. Виведіть їх на екран.
+print("Форма масиву grades_array:", grades_array.shape)
+print("Форма матриці product_matrix:", product_matrix.shape)
+
+# 5.Створіть одновимірний масив за допомогою спеціальної функції numpy, який би відображав динаміку стабільно зростаючого
+# (з рівними проміжками) прибутку з продажів за тиждень, де у перший день не було продажів, а в останній день тижня
+# вдалося заробити 1000 грн 50 коп.
+weekly_profits = np.linspace(0, 1000.50, 7)
+print("динаміка прибутку за тиждень:", weekly_profits)
+
+# 6.Створіть два масиви. Використовуючи їх, продемонструйте відмінність вертикального та горизонтального обʼєднання масивів.
+array1 = np.array([1, 2, 3])
+array2 = np.array([4, 5, 6])
+vertical_concat = np.vstack((array1, array2))
+horizontal_concat = np.hstack((array1, array2))
+print("вертикальне об'єднння:\\n", vertical_concat)
+print("щоризонтальне об'єднання:\\n", horizontal_concat)
+
+# 7.Визначити функцію, яка приймає на вході масив і транспонує його.
+def transpose_array(array):
+    return array.T
+
+transposed = transpose_array(product_matrix)
+print("Транспонована матриця:", transposed)
+
+# 8. Створіть два масиви. Використовуючи ці масиви, продемонструйте:
+array3 = np.array([1, 2, 3])
+array4 = np.array([4, 5, 6])
+# 1) операцію по-елементного додавання
+element_addition = array3 + array4
+# 2)операцію по-елементного віднімання
+element_subtraction = array3 - array4
+# 3)множення масиву на число
+array_scalar_multiplication = array3 * 2
+# 4)операцію по-елементного множення
+element_multiplication = array3 * array4
+# 5)матричного множення
+matrix_multiplication = np.dot(array3.reshape(-1, 1), array4.reshape(1, -1))
+print("По-елементне додавання:", element_addition)
+print("По-елементне віднімання:", element_subtraction)
+print("Множення масиву на число:", array_scalar_multiplication)
+print("По-елементне множення:", element_multiplication)
+print("Матричне множення:", matrix_multiplication)
+
+# 9.Створіть двовимірний масив (матрицю) та розрахуйте:
+matrix = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+# 1) мінімальне число
+min_value = np.min(matrix)
+# 2) максимальне число
+max_value = np.max(matrix)
+# 3) суму чисел
+sum_values = np.sum(matrix)
+# 4) мінімальні числа для кожного рядка
+min_row_values = np.min(matrix, axis=1)
+# 5) максимальні числа для кожного стовпчика
+max_column_values = np.max(matrix, axis=0)
+print("Мінімальне число:", min_value)
+print("Максимальне число:", max_value)
+print("Сума чисел:", sum_values)
+print("Мінімальні числа для кожного рядка:", min_row_values)
+print("Максимальні числа для кожного стовпчика:", max_column_values)
+
+# 10. Створіть матрицю, де деякі елементи повторюються. Знайдіть унікальні значення елементів цієї матриці та їхні частоти.
+repeated_matrix = np.array([[1, 2, 2], [2, 3, 3], [3, 3, 4]])
+unique_values, counts = np.unique(repeated_matrix, return_counts=True)
+print("Унікальні значення:", unique_values)
+print("Частоти значень:", counts)
+
+# II. Importing. Creating DF            Винесла на початок !!!!
+# 11.Створити тестовий датафрейм зі списку, що містить записи пацієнтів про їхні прізвища, імена, дату народження, масу тіла та наявність медичного страхування. Одне зі значень зробить пустим.
+data = {
+    'Прізвище': ['Рибак', 'Рибак', 'Рибак'],
+    'Ім\'я': ['Людмила', 'Людмила', 'Людмила'],
+    'Дата народження': ['2006-06-08', '2006-06-08', '2006-06-08'],
+    'Маса тіла': [54, 50, None],  # None для відсутніх даних
+    'Медичне страхування': [True, False, True]
+}
+df = pd.DataFrame(data)
+print(df)
+
+df = pd.DataFrame(data)
+print(df)
+
+# III. Reading from file
+#12.Завантажити файл missile_attacks_daily.csv з [Kaggle](https:
+#//www.kaggle.com/datasets/piterfm/massive-missile-attacks-on-ukraine?select=missile_attacks_daily.csv).
+#Ознайомитись з описом датасету. Додати файл до папки поточної сесії colab notebook на панелі ліворуч або на гугл диск (локально до проєкту, якщо працюєте у пайчармі).
+#Зчитати датафрейм з файлу та вивести датафрейм на екран.
+#Зверніть увагу на те, щоб всі колонки відповідали наведеним у описі типам даних.
+
+
+path_to_missiles = 'archive/missile_attacks_daily.csv'
+path_to_uav = 'archive/missiles_and_uav.csv'
+#зчитування з файлів
+df_missile_attacks = pd.read_csv(path_to_missiles)
+df_missiles_and_uav = pd.read_csv(path_to_uav)
+
+#вивід у консоль
+print("Информация о missile_attacks_daily.csv:")
+print(df_missile_attacks.info())
+print("\nПервые строки данных missile_attacks_daily.csv:")
+print(df_missile_attacks.head())
+
+print("\nИнформация о missiles_and_uav.csv:")
+print(df_missiles_and_uav.info())
+print("\nПервые строки данных missiles_and_uav.csv:")
+print(df_missiles_and_uav.head())
+
+
+
+
+
+
+
+# IV. Data understanding
+# 13 Виведіть на екран перші 10 рядків зчитаного датафрейму.
+print(df_missile_attacks.head(10))
+
+# 14.Отримайте інформацію про форму датафрейму.
+print(df_missile_attacks.shape)
+
+# 15.Отримайте дані про кожну колонку з її назвою, типом даних та кількістю непустих значень.
+print(df_missile_attacks.info())
+
+# 16.Отримайте статистику для колонок числового типу.
+print(df_missile_attacks.describe())
+
+# 17.Отримати кількість унікальних значень у кожній колонці. Вивести на екран значення та кількість цих значень у колонці,
+# яка має найменше унікальних значень.
+unique_counts = df_missile_attacks.nunique()
+print(unique_counts)
+min_unique_col = unique_counts.idxmin()
+print("Колонка з найменшою кількістю унікальних значень:", min_unique_col)
+print(df_missile_attacks[min_unique_col].value_counts())
+
+
+# V. Data Cleaning
+# 19.Перетворити колонку launched у цілочислену (Int64). Перевірити, чи все пройшло, як очікувалось.
+df_missile_attacks['launched'] = df_missile_attacks['launched'].astype('Int64')
+print(df_missile_attacks['launched'].dtype)
+
+# 20.Видалити колонки, де кількість непустих значень становить менше 30% від загальної кількості записів.
+threshold = len(df_missile_attacks) * 0.3
+df_missile_attacks.dropna(thresh=threshold, axis=1, inplace=True)
+
+# 21.Очистити датафрейм від дублікатів (дублюючихся рядків) та записів, де атака продовжувалась відʼємну або нульову кількість часу (що фізично неможливо).
+# Не забудьте оновити індекс.
+df_missile_attacks = df_missile_attacks[df_missile_attacks['launched'] > 0].drop_duplicates().reset_index(drop=True)
+
+#22.Виведіть на екран всі рядки, де є хоч одне пропущене значення.
+print(df_missile_attacks[df_missile_attacks.isnull().any(axis=1)])
