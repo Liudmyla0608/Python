@@ -14,7 +14,6 @@ products = [
     [25.0, 7.0, 22.5, 46.0]   #Ціни в третьому магазині
 ]
 product_matrix = np.array(products)
-
 # 3 Отримайте тип даних значень з масивів завдань 2 та 3. Виведіть їх на екран.
 print("Тип даних масиву grades_array:", grades_array.dtype)
 print("Тип даних матриці product_matrix:", product_matrix.dtype)
